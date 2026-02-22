@@ -22,7 +22,7 @@ type ClassHandler struct {
 }
 
 const TmpYear = "2025"
-const TmpSemester = "1"
+const TmpSemester = "2"
 
 func NewClassListHandler(
 	ClassListClient classlistv1.ClasserClient,
