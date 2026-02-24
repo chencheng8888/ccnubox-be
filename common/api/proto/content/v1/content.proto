@@ -33,6 +33,11 @@ service ContentService {
   // 热更新版本
   rpc GetUpdateVersion(GetUpdateVersionRequest)returns(GetUpdateVersionResponse);
   rpc SaveUpdateVersion(SaveUpdateVersionRequest)returns(SaveUpdateVersionResponse);
+
+  //学期
+  rpc GetSemester(GetSemesterRequest)returns(GetSemesterResponse);
+  rpc SaveSemester(SaveSemesterRequest)returns(SaveSemesterResponse);
+  rpc GetSemesterList(GetSemesterListRequest)returns(GetSemesterListResponse);
 }
 
 // =====日历=====
@@ -182,3 +187,30 @@ message SaveUpdateVersionRequest{
 }
 
 message SaveUpdateVersionResponse{}
+
+// semester
+message semester{
+  string semester=1;
+  string start_date=2;
+  string end_date=3;
+}
+
+message GetSemesterRequest{
+  string date=1;
+}
+
+message GetSemesterResponse{
+  string semester=1;
+}
+
+message SaveSemesterRequest{
+  semester semester=1;
+}
+
+message SaveSemesterResponse{}
+
+message GetSemesterListRequest{}
+
+message GetSemesterListResponse{
+  repeated semester semesters=1;
+}

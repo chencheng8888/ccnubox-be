@@ -3073,6 +3073,117 @@ const docTemplate = `{
                 }
             }
         },
+        "/semester/getSemester": {
+            "get": {
+                "description": "获取当前所属学期",
+                "tags": [
+                    "semester"
+                ],
+                "summary": "获取当前所属学期",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/content.GetSemesterResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/semester/getSemesterList": {
+            "get": {
+                "description": "获取所有学期信息",
+                "tags": [
+                    "semester"
+                ],
+                "summary": "获取所有学期信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/content.GetSemesterListResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/semester/saveSemester": {
+            "post": {
+                "description": "保存学期信息",
+                "tags": [
+                    "semester"
+                ],
+                "summary": "保存学期信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "保存学期信息请求参数",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/content.SaveSemesterRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "$ref": "#/definitions/web.Response"
+                        }
+                    }
+                }
+            }
+        },
         "/swag": {
             "get": {
                 "security": [
@@ -4071,6 +4182,25 @@ const docTemplate = `{
                 }
             }
         },
+        "content.GetSemesterListResponse": {
+            "type": "object",
+            "properties": {
+                "semesters": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/content.Semester"
+                    }
+                }
+            }
+        },
+        "content.GetSemesterResponse": {
+            "type": "object",
+            "properties": {
+                "semester": {
+                    "type": "string"
+                }
+            }
+        },
         "content.GetUpdateVersionResponse": {
             "type": "object",
             "properties": {
@@ -4192,6 +4322,25 @@ const docTemplate = `{
                 }
             }
         },
+        "content.SaveSemesterRequest": {
+            "type": "object",
+            "required": [
+                "end_date",
+                "semester",
+                "start_date"
+            ],
+            "properties": {
+                "end_date": {
+                    "type": "string"
+                },
+                "semester": {
+                    "type": "string"
+                },
+                "start_date": {
+                    "type": "string"
+                }
+            }
+        },
         "content.SaveVersionRequest": {
             "type": "object",
             "required": [
@@ -4226,6 +4375,20 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "content.Semester": {
+            "type": "object",
+            "properties": {
+                "end_date": {
+                    "type": "string"
+                },
+                "semester": {
+                    "type": "string"
+                },
+                "start_date": {
                     "type": "string"
                 }
             }

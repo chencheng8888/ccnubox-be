@@ -181,3 +181,8 @@ var (
 	GET_UPDATE_VERSION_ERROR  = errorx.FormatErrorFunc(b_errorx.New(http.StatusInternalServerError, INTERNAL_SERVER_ERROR_CODE, "获取热更新版本失败"))
 	SAVE_UPDATE_VERSION_ERROR = errorx.FormatErrorFunc(b_errorx.New(http.StatusInternalServerError, INTERNAL_SERVER_ERROR_CODE, "保存热更新版本失败"))
 )
+
+var (
+	GET_SEMESTER_ERROR  = errorx.FormatErrorFunc(b_errorx.New(http.StatusInternalServerError, INTERNAL_SERVER_ERROR_CODE, "获取学期列表失败"))
+	SAVE_SEMESTER_ERROR = errorx.FormatErrorFunc(b_errorx.New(http.StatusInternalServerError, INTERNAL_SERVER_ERROR_CODE, "保存学期失败"))
+)

@@ -49,3 +49,12 @@ type Website struct {
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 }
+
+type Semester struct {
+	Semester  string
+	StartDate string
+	EndDate   string
+	ID        uint
+	CreatedAt time.Time
+	UpdatedAt time.Time
+}

@@ -1,9 +1,13 @@
 package model
 
-import "gorm.io/gorm"
+import (
+	"time"
+
+	"gorm.io/gorm"
+)
 
 type Content interface {
-	Calendar | Banner | Department | InfoSum | Website | Version
+	Calendar | Banner | Department | InfoSum | Website | Version | Semester
 	Type() string
 }
 
@@ -70,4 +74,15 @@ type Version struct {
 
 func (Version) Type() string {
 	return "version"
+}
+
+type Semester struct {
+	Semester  string    `gorm:"column:semester;type:VARCHAR(50);not null"`
+	StartDate time.Time `gorm:"column:start_date;type:DATE;not null"`
+	EndDate   time.Time `gorm:"column:end_date;type:DATE;not null"`
+	gorm.Model
+}
+
+func (Semester) Type() string {
+	return "semester"
 }
