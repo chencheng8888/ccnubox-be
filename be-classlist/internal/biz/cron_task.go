@@ -83,6 +83,12 @@ func pullClassListTask(
 			defer log.Infof("worker-%d stopped", id)
 
 			for stuID := range jobs {
+				if tool.IsGraduated(stuID) {
+					// 跳过已经毕业的学生
+					log.Infof("worker-%d skipping graduated student %s", id, stuID)
+					continue
+				}
+
 
 				// 等待令牌,如果上下文被取消则退出
 				if err := limiter.Wait(ctx); err != nil {
