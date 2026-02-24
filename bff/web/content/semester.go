@@ -12,23 +12,20 @@ import (
 
 func (h *ContentHandler) RegisterSemesterRoute(group *gin.RouterGroup, authMiddleware gin.HandlerFunc) {
 	sg := group.Group("/semester")
-	sg.POST("/getSemester", authMiddleware, ginx.WrapReq(h.GetSemester))
+	sg.GET("/getSemester", authMiddleware, ginx.Wrap(h.GetSemester))
 	sg.POST("/saveSemester", authMiddleware, ginx.WrapReq(h.SaveSemester))
+	sg.GET("/getSemesterList", authMiddleware, ginx.Wrap(h.GetSemesterList))
 }
 
-// GetSemester 获取当前日期所属学期
-// @Summary 获取当前日期所属学期
-// @Description 获取当前日期所属学期
+// GetSemester 获取当前所属学期
+// @Summary 获取当前所属学期
+// @Description 获取当前所属学期
 // @Param Authorization header string true "Bearer Token"
-// @Param request body GetSemesterRequest true "获取学期信息请求参数"
 // @Tags semester
 // @Success 200 {object} web.Response{data=GetSemesterResponse} "成功"
-// @Router /semester/getSemester [post]
-func (h *ContentHandler) GetSemester(ctx *gin.Context, req GetSemesterRequest) (web.Response, error) {
-	r := &contentv1.GetSemesterRequest{Date: req.Date}
-	if req.Date == "" {
-		r.Date = time.Now().Format("2006-01-02")
-	}
+// @Router /semester/getSemester [get]
+func (h *ContentHandler) GetSemester(ctx *gin.Context) (web.Response, error) {
+	r := &contentv1.GetSemesterRequest{Date: time.Now().Format("2006-01-02")}
 	resp, err := h.contentClient.GetSemester(ctx, r)
 	if err != nil {
 		return web.Response{}, errs.GET_SEMESTER_ERROR(err)
@@ -59,5 +56,33 @@ func (h *ContentHandler) SaveSemester(ctx *gin.Context, req SaveSemesterRequest)
 	}
 	return web.Response{
 		Msg: "Success",
+	}, nil
+}
+
+// GetSemesterList 获取所有学期信息
+// @Summary 获取所有学期信息
+// @Description 获取所有学期信息
+// @Param Authorization header string true "Bearer Token"
+// @Tags semester
+// @Success 200 {object} web.Response{data=GetSemesterListResponse} "成功"
+// @Router /semester/getSemesterList [get]
+func (h *ContentHandler) GetSemesterList(ctx *gin.Context) (web.Response, error) {
+	resp, err := h.contentClient.GetSemesterList(ctx, &contentv1.GetSemesterListRequest{})
+	if err != nil {
+		return web.Response{}, err
+	}
+
+	semesters := make([]Semester, 0, len(resp.Semesters))
+	for _, s := range resp.Semesters {
+		semesters = append(semesters, Semester{
+			Semester:  s.GetSemester(),
+			StartDate: s.GetStartDate(),
+			EndDate:   s.GetEndDate(),
+		})
+	}
+
+	return web.Response{
+		Msg:  "Success",
+		Data: semesters,
 	}, nil
 }

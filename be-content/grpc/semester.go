@@ -30,3 +30,24 @@ func (c *ContentServiceServer) SaveSemester(ctx context.Context, in *contentv1.S
 	return &contentv1.SaveSemesterResponse{}, nil
 
 }
+
+func (c *ContentServiceServer) GetSemesterList(ctx context.Context, in *contentv1.GetSemesterListRequest) (*contentv1.GetSemesterListResponse, error) {
+	semesters, err := c.svcSemester.GetAll(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	resp := &contentv1.GetSemesterListResponse{
+		Semesters: make([]*contentv1.Semester, 0, len(semesters)),
+	}
+
+	for _, semester := range semesters {
+		resp.Semesters = append(resp.Semesters, &contentv1.Semester{
+			Semester:  semester.Semester,
+			StartDate: semester.StartDate,
+			EndDate:   semester.EndDate,
+		})
+	}
+
+	return resp, nil
+}

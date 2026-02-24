@@ -1971,6 +1971,86 @@ func (*SaveSemesterResponse) Descriptor() ([]byte, []int) {
 	return file_content_v1_content_proto_rawDescGZIP(), []int{43}
 }
 
+type GetSemesterListRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetSemesterListRequest) Reset() {
+	*x = GetSemesterListRequest{}
+	mi := &file_content_v1_content_proto_msgTypes[44]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetSemesterListRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSemesterListRequest) ProtoMessage() {}
+
+func (x *GetSemesterListRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_content_v1_content_proto_msgTypes[44]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSemesterListRequest.ProtoReflect.Descriptor instead.
+func (*GetSemesterListRequest) Descriptor() ([]byte, []int) {
+	return file_content_v1_content_proto_rawDescGZIP(), []int{44}
+}
+
+type GetSemesterListResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Semesters     []*Semester            `protobuf:"bytes,1,rep,name=semesters,proto3" json:"semesters,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetSemesterListResponse) Reset() {
+	*x = GetSemesterListResponse{}
+	mi := &file_content_v1_content_proto_msgTypes[45]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetSemesterListResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetSemesterListResponse) ProtoMessage() {}
+
+func (x *GetSemesterListResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_content_v1_content_proto_msgTypes[45]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetSemesterListResponse.ProtoReflect.Descriptor instead.
+func (*GetSemesterListResponse) Descriptor() ([]byte, []int) {
+	return file_content_v1_content_proto_rawDescGZIP(), []int{45}
+}
+
+func (x *GetSemesterListResponse) GetSemesters() []*Semester {
+	if x != nil {
+		return x.Semesters
+	}
+	return nil
+}
+
 var File_content_v1_content_proto protoreflect.FileDescriptor
 
 const file_content_v1_content_proto_rawDesc = "" +
@@ -2069,7 +2149,10 @@ const file_content_v1_content_proto_rawDesc = "" +
 	"\bsemester\x18\x01 \x01(\tR\bsemester\"G\n" +
 	"\x13SaveSemesterRequest\x120\n" +
 	"\bsemester\x18\x01 \x01(\v2\x14.content.v1.semesterR\bsemester\"\x16\n" +
-	"\x14SaveSemesterResponse2\xb0\f\n" +
+	"\x14SaveSemesterResponse\"\x18\n" +
+	"\x16GetSemesterListRequest\"M\n" +
+	"\x17GetSemesterListResponse\x122\n" +
+	"\tsemesters\x18\x01 \x03(\v2\x14.content.v1.semesterR\tsemesters2\x8c\r\n" +
 	"\x0eContentService\x12Q\n" +
 	"\fGetCalendars\x12\x1f.content.v1.GetCalendarsRequest\x1a .content.v1.GetCalendarsResponse\x12Q\n" +
 	"\fSaveCalendar\x12\x1f.content.v1.SaveCalendarRequest\x1a .content.v1.SaveCalendarResponse\x12N\n" +
@@ -2093,7 +2176,8 @@ const file_content_v1_content_proto_rawDesc = "" +
 	"\x10GetUpdateVersion\x12#.content.v1.GetUpdateVersionRequest\x1a$.content.v1.GetUpdateVersionResponse\x12`\n" +
 	"\x11SaveUpdateVersion\x12$.content.v1.SaveUpdateVersionRequest\x1a%.content.v1.SaveUpdateVersionResponse\x12N\n" +
 	"\vGetSemester\x12\x1e.content.v1.GetSemesterRequest\x1a\x1f.content.v1.GetSemesterResponse\x12Q\n" +
-	"\fSaveSemester\x12\x1f.content.v1.SaveSemesterRequest\x1a .content.v1.SaveSemesterResponseBJZHgithub.com/asynccnu/ccnubox-be/common/api/gen/proto/content/v1;contentv1b\x06proto3"
+	"\fSaveSemester\x12\x1f.content.v1.SaveSemesterRequest\x1a .content.v1.SaveSemesterResponse\x12Z\n" +
+	"\x0fGetSemesterList\x12\".content.v1.GetSemesterListRequest\x1a#.content.v1.GetSemesterListResponseBJZHgithub.com/asynccnu/ccnubox-be/common/api/gen/proto/content/v1;contentv1b\x06proto3"
 
 var (
 	file_content_v1_content_proto_rawDescOnce sync.Once
@@ -2107,7 +2191,7 @@ func file_content_v1_content_proto_rawDescGZIP() []byte {
 	return file_content_v1_content_proto_rawDescData
 }
 
-var file_content_v1_content_proto_msgTypes = make([]protoimpl.MessageInfo, 44)
+var file_content_v1_content_proto_msgTypes = make([]protoimpl.MessageInfo, 46)
 var file_content_v1_content_proto_goTypes = []any{
 	(*Calendar)(nil),                  // 0: content.v1.Calendar
 	(*GetCalendarsRequest)(nil),       // 1: content.v1.GetCalendarsRequest
@@ -2153,6 +2237,8 @@ var file_content_v1_content_proto_goTypes = []any{
 	(*GetSemesterResponse)(nil),       // 41: content.v1.GetSemesterResponse
 	(*SaveSemesterRequest)(nil),       // 42: content.v1.SaveSemesterRequest
 	(*SaveSemesterResponse)(nil),      // 43: content.v1.SaveSemesterResponse
+	(*GetSemesterListRequest)(nil),    // 44: content.v1.GetSemesterListRequest
+	(*GetSemesterListResponse)(nil),   // 45: content.v1.GetSemesterListResponse
 }
 var file_content_v1_content_proto_depIdxs = []int32{
 	0,  // 0: content.v1.GetCalendarsResponse.calendars:type_name -> content.v1.Calendar
@@ -2165,49 +2251,52 @@ var file_content_v1_content_proto_depIdxs = []int32{
 	28, // 7: content.v1.GetWebsitesResponse.websites:type_name -> content.v1.Website
 	28, // 8: content.v1.SaveWebsiteRequest.website:type_name -> content.v1.Website
 	39, // 9: content.v1.SaveSemesterRequest.semester:type_name -> content.v1.semester
-	1,  // 10: content.v1.ContentService.GetCalendars:input_type -> content.v1.GetCalendarsRequest
-	3,  // 11: content.v1.ContentService.SaveCalendar:input_type -> content.v1.SaveCalendarRequest
-	5,  // 12: content.v1.ContentService.DelCalendar:input_type -> content.v1.DelCalendarRequest
-	8,  // 13: content.v1.ContentService.GetBanners:input_type -> content.v1.GetBannersRequest
-	10, // 14: content.v1.ContentService.SaveBanner:input_type -> content.v1.SaveBannerRequest
-	12, // 15: content.v1.ContentService.DelBanner:input_type -> content.v1.DelBannerRequest
-	15, // 16: content.v1.ContentService.GetInfoSums:input_type -> content.v1.GetInfoSumsRequest
-	17, // 17: content.v1.ContentService.SaveInfoSum:input_type -> content.v1.SaveInfoSumRequest
-	19, // 18: content.v1.ContentService.DelInfoSum:input_type -> content.v1.DelInfoSumRequest
-	22, // 19: content.v1.ContentService.GetDepartments:input_type -> content.v1.GetDepartmentsRequest
-	24, // 20: content.v1.ContentService.SaveDepartment:input_type -> content.v1.SaveDepartmentRequest
-	26, // 21: content.v1.ContentService.DelDepartment:input_type -> content.v1.DelDepartmentRequest
-	29, // 22: content.v1.ContentService.GetWebsites:input_type -> content.v1.GetWebsitesRequest
-	31, // 23: content.v1.ContentService.SaveWebsite:input_type -> content.v1.SaveWebsiteRequest
-	33, // 24: content.v1.ContentService.DelWebsite:input_type -> content.v1.DelWebsiteRequest
-	35, // 25: content.v1.ContentService.GetUpdateVersion:input_type -> content.v1.GetUpdateVersionRequest
-	37, // 26: content.v1.ContentService.SaveUpdateVersion:input_type -> content.v1.SaveUpdateVersionRequest
-	40, // 27: content.v1.ContentService.GetSemester:input_type -> content.v1.GetSemesterRequest
-	42, // 28: content.v1.ContentService.SaveSemester:input_type -> content.v1.SaveSemesterRequest
-	2,  // 29: content.v1.ContentService.GetCalendars:output_type -> content.v1.GetCalendarsResponse
-	4,  // 30: content.v1.ContentService.SaveCalendar:output_type -> content.v1.SaveCalendarResponse
-	6,  // 31: content.v1.ContentService.DelCalendar:output_type -> content.v1.DelCalendarResponse
-	9,  // 32: content.v1.ContentService.GetBanners:output_type -> content.v1.GetBannersResponse
-	11, // 33: content.v1.ContentService.SaveBanner:output_type -> content.v1.SaveBannerResponse
-	13, // 34: content.v1.ContentService.DelBanner:output_type -> content.v1.DelBannerResponse
-	16, // 35: content.v1.ContentService.GetInfoSums:output_type -> content.v1.GetInfoSumsResponse
-	18, // 36: content.v1.ContentService.SaveInfoSum:output_type -> content.v1.SaveInfoSumResponse
-	20, // 37: content.v1.ContentService.DelInfoSum:output_type -> content.v1.DelInfoSumResponse
-	23, // 38: content.v1.ContentService.GetDepartments:output_type -> content.v1.GetDepartmentsResponse
-	25, // 39: content.v1.ContentService.SaveDepartment:output_type -> content.v1.SaveDepartmentResponse
-	27, // 40: content.v1.ContentService.DelDepartment:output_type -> content.v1.DelDepartmentResponse
-	30, // 41: content.v1.ContentService.GetWebsites:output_type -> content.v1.GetWebsitesResponse
-	32, // 42: content.v1.ContentService.SaveWebsite:output_type -> content.v1.SaveWebsiteResponse
-	34, // 43: content.v1.ContentService.DelWebsite:output_type -> content.v1.DelWebsiteResponse
-	36, // 44: content.v1.ContentService.GetUpdateVersion:output_type -> content.v1.GetUpdateVersionResponse
-	38, // 45: content.v1.ContentService.SaveUpdateVersion:output_type -> content.v1.SaveUpdateVersionResponse
-	41, // 46: content.v1.ContentService.GetSemester:output_type -> content.v1.GetSemesterResponse
-	43, // 47: content.v1.ContentService.SaveSemester:output_type -> content.v1.SaveSemesterResponse
-	29, // [29:48] is the sub-list for method output_type
-	10, // [10:29] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	39, // 10: content.v1.GetSemesterListResponse.semesters:type_name -> content.v1.semester
+	1,  // 11: content.v1.ContentService.GetCalendars:input_type -> content.v1.GetCalendarsRequest
+	3,  // 12: content.v1.ContentService.SaveCalendar:input_type -> content.v1.SaveCalendarRequest
+	5,  // 13: content.v1.ContentService.DelCalendar:input_type -> content.v1.DelCalendarRequest
+	8,  // 14: content.v1.ContentService.GetBanners:input_type -> content.v1.GetBannersRequest
+	10, // 15: content.v1.ContentService.SaveBanner:input_type -> content.v1.SaveBannerRequest
+	12, // 16: content.v1.ContentService.DelBanner:input_type -> content.v1.DelBannerRequest
+	15, // 17: content.v1.ContentService.GetInfoSums:input_type -> content.v1.GetInfoSumsRequest
+	17, // 18: content.v1.ContentService.SaveInfoSum:input_type -> content.v1.SaveInfoSumRequest
+	19, // 19: content.v1.ContentService.DelInfoSum:input_type -> content.v1.DelInfoSumRequest
+	22, // 20: content.v1.ContentService.GetDepartments:input_type -> content.v1.GetDepartmentsRequest
+	24, // 21: content.v1.ContentService.SaveDepartment:input_type -> content.v1.SaveDepartmentRequest
+	26, // 22: content.v1.ContentService.DelDepartment:input_type -> content.v1.DelDepartmentRequest
+	29, // 23: content.v1.ContentService.GetWebsites:input_type -> content.v1.GetWebsitesRequest
+	31, // 24: content.v1.ContentService.SaveWebsite:input_type -> content.v1.SaveWebsiteRequest
+	33, // 25: content.v1.ContentService.DelWebsite:input_type -> content.v1.DelWebsiteRequest
+	35, // 26: content.v1.ContentService.GetUpdateVersion:input_type -> content.v1.GetUpdateVersionRequest
+	37, // 27: content.v1.ContentService.SaveUpdateVersion:input_type -> content.v1.SaveUpdateVersionRequest
+	40, // 28: content.v1.ContentService.GetSemester:input_type -> content.v1.GetSemesterRequest
+	42, // 29: content.v1.ContentService.SaveSemester:input_type -> content.v1.SaveSemesterRequest
+	44, // 30: content.v1.ContentService.GetSemesterList:input_type -> content.v1.GetSemesterListRequest
+	2,  // 31: content.v1.ContentService.GetCalendars:output_type -> content.v1.GetCalendarsResponse
+	4,  // 32: content.v1.ContentService.SaveCalendar:output_type -> content.v1.SaveCalendarResponse
+	6,  // 33: content.v1.ContentService.DelCalendar:output_type -> content.v1.DelCalendarResponse
+	9,  // 34: content.v1.ContentService.GetBanners:output_type -> content.v1.GetBannersResponse
+	11, // 35: content.v1.ContentService.SaveBanner:output_type -> content.v1.SaveBannerResponse
+	13, // 36: content.v1.ContentService.DelBanner:output_type -> content.v1.DelBannerResponse
+	16, // 37: content.v1.ContentService.GetInfoSums:output_type -> content.v1.GetInfoSumsResponse
+	18, // 38: content.v1.ContentService.SaveInfoSum:output_type -> content.v1.SaveInfoSumResponse
+	20, // 39: content.v1.ContentService.DelInfoSum:output_type -> content.v1.DelInfoSumResponse
+	23, // 40: content.v1.ContentService.GetDepartments:output_type -> content.v1.GetDepartmentsResponse
+	25, // 41: content.v1.ContentService.SaveDepartment:output_type -> content.v1.SaveDepartmentResponse
+	27, // 42: content.v1.ContentService.DelDepartment:output_type -> content.v1.DelDepartmentResponse
+	30, // 43: content.v1.ContentService.GetWebsites:output_type -> content.v1.GetWebsitesResponse
+	32, // 44: content.v1.ContentService.SaveWebsite:output_type -> content.v1.SaveWebsiteResponse
+	34, // 45: content.v1.ContentService.DelWebsite:output_type -> content.v1.DelWebsiteResponse
+	36, // 46: content.v1.ContentService.GetUpdateVersion:output_type -> content.v1.GetUpdateVersionResponse
+	38, // 47: content.v1.ContentService.SaveUpdateVersion:output_type -> content.v1.SaveUpdateVersionResponse
+	41, // 48: content.v1.ContentService.GetSemester:output_type -> content.v1.GetSemesterResponse
+	43, // 49: content.v1.ContentService.SaveSemester:output_type -> content.v1.SaveSemesterResponse
+	45, // 50: content.v1.ContentService.GetSemesterList:output_type -> content.v1.GetSemesterListResponse
+	31, // [31:51] is the sub-list for method output_type
+	11, // [11:31] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_content_v1_content_proto_init() }
@@ -2221,7 +2310,7 @@ func file_content_v1_content_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_content_v1_content_proto_rawDesc), len(file_content_v1_content_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   44,
+			NumMessages:   46,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

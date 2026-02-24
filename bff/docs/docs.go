@@ -3074,12 +3074,12 @@ const docTemplate = `{
             }
         },
         "/semester/getSemester": {
-            "post": {
-                "description": "获取当前日期所属学期",
+            "get": {
+                "description": "获取当前所属学期",
                 "tags": [
                     "semester"
                 ],
-                "summary": "获取当前日期所属学期",
+                "summary": "获取当前所属学期",
                 "parameters": [
                     {
                         "type": "string",
@@ -3087,15 +3087,6 @@ const docTemplate = `{
                         "name": "Authorization",
                         "in": "header",
                         "required": true
-                    },
-                    {
-                        "description": "获取学期信息请求参数",
-                        "name": "request",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/content.GetSemesterRequest"
-                        }
                     }
                 ],
                 "responses": {
@@ -3111,6 +3102,44 @@ const docTemplate = `{
                                     "properties": {
                                         "data": {
                                             "$ref": "#/definitions/content.GetSemesterResponse"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "/semester/getSemesterList": {
+            "get": {
+                "description": "获取所有学期信息",
+                "tags": [
+                    "semester"
+                ],
+                "summary": "获取所有学期信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/web.Response"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/content.GetSemesterListResponse"
                                         }
                                     }
                                 }
@@ -4153,11 +4182,14 @@ const docTemplate = `{
                 }
             }
         },
-        "content.GetSemesterRequest": {
+        "content.GetSemesterListResponse": {
             "type": "object",
             "properties": {
-                "date": {
-                    "type": "string"
+                "semesters": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/content.Semester"
+                    }
                 }
             }
         },
@@ -4343,6 +4375,20 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "content.Semester": {
+            "type": "object",
+            "properties": {
+                "end_date": {
+                    "type": "string"
+                },
+                "semester": {
+                    "type": "string"
+                },
+                "start_date": {
                     "type": "string"
                 }
             }

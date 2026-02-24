@@ -15,18 +15,38 @@ import (
 )
 
 var (
-	GET_SEMESTER_ERROR  = errorx.FormatErrorFunc(contentv1.ErrorGetSemesterError("获取学期列表失败"))
-	SAVE_SEMESTER_ERROR = errorx.FormatErrorFunc(contentv1.ErrorSaveSemesterError("保存学期信息失败"))
+	GET_SEMESTER_LIST_ERROR = errorx.FormatErrorFunc(contentv1.ErrorGetSemesterListError("获取所有学期失败"))
+	GET_SEMESTER_ERROR      = errorx.FormatErrorFunc(contentv1.ErrorGetSemesterError("获取当前学期失败"))
+	SAVE_SEMESTER_ERROR     = errorx.FormatErrorFunc(contentv1.ErrorSaveSemesterError("保存学期信息失败"))
 )
 
 type SemesterService interface {
 	Get(ctx context.Context, t string) (string, error)
+	GetAll(ctx context.Context) ([]*domain.Semester, error)
 	Save(ctx context.Context, s *domain.Semester) error
 }
 
 type semesterService struct {
 	repo repository.ContentRepo[model.Semester]
 	l    logger.Logger
+}
+
+func (se *semesterService) GetAll(ctx context.Context) ([]*domain.Semester, error) {
+	list, err := se.repo.GetList(ctx)
+	if err != nil {
+		return nil, GET_SEMESTER_LIST_ERROR(err)
+	}
+
+	res := make([]*domain.Semester, 0, len(list))
+	for _, s := range list {
+		res = append(res, &domain.Semester{
+			Semester:  s.Semester,
+			StartDate: s.StartDate.Format("2006-01-02"),
+			EndDate:   s.EndDate.Format("2006-01-02"),
+		})
+	}
+
+	return res, nil
 }
 
 func NewSemesterService(repo repository.ContentRepo[model.Semester], l logger.Logger) SemesterService {

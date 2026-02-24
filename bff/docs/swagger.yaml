@@ -419,10 +419,12 @@ definitions:
           $ref: '#/definitions/content.InfoSum'
         type: array
     type: object
-  content.GetSemesterRequest:
+  content.GetSemesterListResponse:
     properties:
-      date:
-        type: string
+      semesters:
+        items:
+          $ref: '#/definitions/content.Semester'
+        type: array
     type: object
   content.GetSemesterResponse:
     properties:
@@ -548,6 +550,15 @@ definitions:
     - image
     - link
     - name
+    type: object
+  content.Semester:
+    properties:
+      end_date:
+        type: string
+      semester:
+        type: string
+      start_date:
+        type: string
     type: object
   content.Website:
     properties:
@@ -3195,20 +3206,14 @@ paths:
       tags:
       - metrics
   /semester/getSemester:
-    post:
-      description: 获取当前日期所属学期
+    get:
+      description: 获取当前所属学期
       parameters:
       - description: Bearer Token
         in: header
         name: Authorization
         required: true
         type: string
-      - description: 获取学期信息请求参数
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/content.GetSemesterRequest'
       responses:
         "200":
           description: 成功
@@ -3219,7 +3224,29 @@ paths:
                 data:
                   $ref: '#/definitions/content.GetSemesterResponse'
               type: object
-      summary: 获取当前日期所属学期
+      summary: 获取当前所属学期
+      tags:
+      - semester
+  /semester/getSemesterList:
+    get:
+      description: 获取所有学期信息
+      parameters:
+      - description: Bearer Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/web.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/content.GetSemesterListResponse'
+              type: object
+      summary: 获取所有学期信息
       tags:
       - semester
   /semester/saveSemester:

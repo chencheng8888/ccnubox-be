@@ -240,3 +240,15 @@ func IsSaveSemesterError(err error) bool {
 func ErrorSaveSemesterError(format string, args ...interface{}) *errors.Error {
 	return errors.New(571, CalendarErrorReason_SAVE_SEMESTER_ERROR.String(), fmt.Sprintf(format, args...))
 }
+
+func IsGetSemesterListError(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == CalendarErrorReason_GET_SEMESTER_LIST_ERROR.String() && e.Code == 572
+}
+
+func ErrorGetSemesterListError(format string, args ...interface{}) *errors.Error {
+	return errors.New(572, CalendarErrorReason_GET_SEMESTER_LIST_ERROR.String(), fmt.Sprintf(format, args...))
+}

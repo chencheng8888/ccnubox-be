@@ -38,6 +38,7 @@ const (
 	ContentService_SaveUpdateVersion_FullMethodName = "/content.v1.ContentService/SaveUpdateVersion"
 	ContentService_GetSemester_FullMethodName       = "/content.v1.ContentService/GetSemester"
 	ContentService_SaveSemester_FullMethodName      = "/content.v1.ContentService/SaveSemester"
+	ContentService_GetSemesterList_FullMethodName   = "/content.v1.ContentService/GetSemesterList"
 )
 
 // ContentServiceClient is the client API for ContentService service.
@@ -70,6 +71,7 @@ type ContentServiceClient interface {
 	//学期
 	GetSemester(ctx context.Context, in *GetSemesterRequest, opts ...grpc.CallOption) (*GetSemesterResponse, error)
 	SaveSemester(ctx context.Context, in *SaveSemesterRequest, opts ...grpc.CallOption) (*SaveSemesterResponse, error)
+	GetSemesterList(ctx context.Context, in *GetSemesterListRequest, opts ...grpc.CallOption) (*GetSemesterListResponse, error)
 }
 
 type contentServiceClient struct {
@@ -270,6 +272,16 @@ func (c *contentServiceClient) SaveSemester(ctx context.Context, in *SaveSemeste
 	return out, nil
 }
 
+func (c *contentServiceClient) GetSemesterList(ctx context.Context, in *GetSemesterListRequest, opts ...grpc.CallOption) (*GetSemesterListResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetSemesterListResponse)
+	err := c.cc.Invoke(ctx, ContentService_GetSemesterList_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ContentServiceServer is the server API for ContentService service.
 // All implementations must embed UnimplementedContentServiceServer
 // for forward compatibility.
@@ -300,6 +312,7 @@ type ContentServiceServer interface {
 	//学期
 	GetSemester(context.Context, *GetSemesterRequest) (*GetSemesterResponse, error)
 	SaveSemester(context.Context, *SaveSemesterRequest) (*SaveSemesterResponse, error)
+	GetSemesterList(context.Context, *GetSemesterListRequest) (*GetSemesterListResponse, error)
 	mustEmbedUnimplementedContentServiceServer()
 }
 
@@ -366,6 +379,9 @@ func (UnimplementedContentServiceServer) GetSemester(context.Context, *GetSemest
 }
 func (UnimplementedContentServiceServer) SaveSemester(context.Context, *SaveSemesterRequest) (*SaveSemesterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SaveSemester not implemented")
+}
+func (UnimplementedContentServiceServer) GetSemesterList(context.Context, *GetSemesterListRequest) (*GetSemesterListResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSemesterList not implemented")
 }
 func (UnimplementedContentServiceServer) mustEmbedUnimplementedContentServiceServer() {}
 func (UnimplementedContentServiceServer) testEmbeddedByValue()                        {}
@@ -730,6 +746,24 @@ func _ContentService_SaveSemester_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ContentService_GetSemesterList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSemesterListRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ContentServiceServer).GetSemesterList(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ContentService_GetSemesterList_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ContentServiceServer).GetSemesterList(ctx, req.(*GetSemesterListRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ContentService_ServiceDesc is the grpc.ServiceDesc for ContentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -812,6 +846,10 @@ var ContentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "SaveSemester",
 			Handler:    _ContentService_SaveSemester_Handler,
+		},
+		{
+			MethodName: "GetSemesterList",
+			Handler:    _ContentService_GetSemesterList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

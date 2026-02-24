@@ -37,6 +37,7 @@ service ContentService {
   //学期
   rpc GetSemester(GetSemesterRequest)returns(GetSemesterResponse);
   rpc SaveSemester(SaveSemesterRequest)returns(SaveSemesterResponse);
+  rpc GetSemesterList(GetSemesterListRequest)returns(GetSemesterListResponse);
 }
 
 // =====日历=====
@@ -207,3 +208,9 @@ message SaveSemesterRequest{
 }
 
 message SaveSemesterResponse{}
+
+message GetSemesterListRequest{}
+
+message GetSemesterListResponse{
+  repeated semester semesters=1;
+}

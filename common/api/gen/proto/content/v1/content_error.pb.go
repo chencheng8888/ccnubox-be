@@ -45,6 +45,7 @@ const (
 	CalendarErrorReason_SAVE_UPDATE_SERVICE_ERROR CalendarErrorReason = 61
 	CalendarErrorReason_GET_SEMESTER_ERROR        CalendarErrorReason = 70
 	CalendarErrorReason_SAVE_SEMESTER_ERROR       CalendarErrorReason = 71
+	CalendarErrorReason_GET_SEMESTER_LIST_ERROR   CalendarErrorReason = 72
 )
 
 // Enum value maps for CalendarErrorReason.
@@ -69,6 +70,7 @@ var (
 		61: "SAVE_UPDATE_SERVICE_ERROR",
 		70: "GET_SEMESTER_ERROR",
 		71: "SAVE_SEMESTER_ERROR",
+		72: "GET_SEMESTER_LIST_ERROR",
 	}
 	CalendarErrorReason_value = map[string]int32{
 		"GET_CALENDAR_ERROR":        0,
@@ -90,6 +92,7 @@ var (
 		"SAVE_UPDATE_SERVICE_ERROR": 61,
 		"GET_SEMESTER_ERROR":        70,
 		"SAVE_SEMESTER_ERROR":       71,
+		"GET_SEMESTER_LIST_ERROR":   72,
 	}
 )
 
@@ -124,7 +127,7 @@ var File_content_v1_content_error_proto protoreflect.FileDescriptor
 
 const file_content_v1_content_error_proto_rawDesc = "" +
 	"\n" +
-	"\x1econtent/v1/content_error.proto\x12\vcalendar.v1\x1a\x13errors/errors.proto*\xe2\x04\n" +
+	"\x1econtent/v1/content_error.proto\x12\vcalendar.v1\x1a\x13errors/errors.proto*\x85\x05\n" +
 	"\x13CalendarErrorReason\x12\x1c\n" +
 	"\x12GET_CALENDAR_ERROR\x10\x00\x1a\x04\xa8E\xf5\x03\x12\x1c\n" +
 	"\x12DEL_CALENDAR_ERROR\x10\x01\x1a\x04\xa8E\xf6\x03\x12\x1d\n" +
@@ -145,7 +148,8 @@ const file_content_v1_content_error_proto_rawDesc = "" +
 	"\x18GET_UPDATE_SERVICE_ERROR\x10<\x1a\x04\xa8E\xb0\x04\x12#\n" +
 	"\x19SAVE_UPDATE_SERVICE_ERROR\x10=\x1a\x04\xa8E\xb1\x04\x12\x1c\n" +
 	"\x12GET_SEMESTER_ERROR\x10F\x1a\x04\xa8E\xba\x04\x12\x1d\n" +
-	"\x13SAVE_SEMESTER_ERROR\x10G\x1a\x04\xa8E\xbb\x04\x1a\x04\xa0E\xf4\x03BJZHgithub.com/asynccnu/ccnubox-be/common/api/gen/proto/content/v1;contentv1b\x06proto3"
+	"\x13SAVE_SEMESTER_ERROR\x10G\x1a\x04\xa8E\xbb\x04\x12!\n" +
+	"\x17GET_SEMESTER_LIST_ERROR\x10H\x1a\x04\xa8E\xbc\x04\x1a\x04\xa0E\xf4\x03BJZHgithub.com/asynccnu/ccnubox-be/common/api/gen/proto/content/v1;contentv1b\x06proto3"
 
 var (
 	file_content_v1_content_error_proto_rawDescOnce sync.Once

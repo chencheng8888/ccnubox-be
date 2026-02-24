@@ -124,8 +124,10 @@ type SaveVersionRequest struct {
 	Version string `json:"version" binding:"required"`
 }
 
-type GetSemesterRequest struct {
-	Date string `json:"date"`
+type Semester struct {
+	Semester  string `json:"semester"`
+	StartDate string `json:"start_date"`
+	EndDate   string `json:"end_date"`
 }
 
 type GetSemesterResponse struct {
@@ -136,4 +138,8 @@ type SaveSemesterRequest struct {
 	Semester  string `json:"semester" binding:"required"`
 	StartDate string `json:"start_date" binding:"required"`
 	EndDate   string `json:"end_date" binding:"required"`
+}
+
+type GetSemesterListResponse struct {
+	Semesters []*Semester `json:"semesters"`
 }
