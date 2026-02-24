@@ -32,6 +32,8 @@ type ClassUsecase struct {
 	gpool *ants.Pool
 	// rndPool 用于生成随机数，避免每次都创建新的rand对象,同时保证并发安全
 	rndPool sync.Pool
+
+	cronTask *CronTaskExecute
 }
 
 func (cluc *ClassUsecase) Close() {
@@ -39,11 +41,15 @@ func (cluc *ClassUsecase) Close() {
 		cluc.gpool.Release()
 		logger.GlobalLogger.Info("ClassUsecase goroutine pool released")
 	}
+	if cluc.cronTask != nil {
+		cluc.cronTask.Stop()
+		logger.GlobalLogger.Info("Cron task stopped")
+	}
 }
 
 func NewClassUsecase(classRepo ClassRepo, crawler ClassCrawler,
 	JxbRepo JxbRepo, Cs CCNUServiceProxy, delayQue DelayQueue, refreshLog RefreshLogRepo,
-	cf *conf.Server,
+	cf *conf.Server,cronTask *CronTaskExecute,
 ) (*ClassUsecase, func()) {
 	waitCrawTime := 1200 * time.Millisecond
 	waitUserSvcTime := 10000 * time.Millisecond
@@ -73,6 +79,7 @@ func NewClassUsecase(classRepo ClassRepo, crawler ClassCrawler,
 				return rand.New(rand.NewSource(time.Now().UnixNano()))
 			},
 		},
+		cronTask: cronTask,
 	}
 	// 开启一个协程来处理重试消息
 	go func() {
@@ -640,26 +647,4 @@ func (cluc *ClassUsecase) UpdateClassNote(ctx context.Context, stuID, year, seme
 	return nil
 }
 
-// Student 学生接口
-type Student interface {
-	GetClass(ctx context.Context, stuID, year, semester, cookie string, craw ClassCrawler) ([]*ClassInfo, []*StudentCourse, int, error)
-}
-type Undergraduate struct{}
 
-func (u *Undergraduate) GetClass(ctx context.Context, stuID, year, semester, cookie string, craw ClassCrawler) ([]*ClassInfo, []*StudentCourse, int, error) {
-	infos, scs, sum, err := craw.GetClassInfosForUndergraduate(ctx, stuID, year, semester, cookie)
-	if err != nil {
-		return nil, nil, -1, err
-	}
-	return infos, scs, sum, nil
-}
-
-type GraduateStudent struct{}
-
-func (g *GraduateStudent) GetClass(ctx context.Context, stuID, year, semester, cookie string, craw ClassCrawler) ([]*ClassInfo, []*StudentCourse, int, error) {
-	infos, scs, sum, err := craw.GetClassInfoForGraduateStudent(ctx, stuID, year, semester, cookie)
-	if err != nil {
-		return nil, nil, -1, err
-	}
-	return infos, scs, sum, nil
-}

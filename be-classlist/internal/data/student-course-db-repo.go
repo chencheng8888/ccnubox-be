@@ -149,3 +149,32 @@ func (s StudentAndCourseDBRepo) UpdateCourseNote(ctx context.Context, stuID, yea
 	}
 	return nil
 }
+
+func (s StudentAndCourseDBRepo) GetStudentIDs(ctx context.Context, lastStuID string,size int) ([]string, error) {
+	if size <= 0 {
+    	size = 100
+	}
+	
+	db := s.data.DB(ctx).Table(do.StudentCourseTableName).WithContext(ctx)
+
+	var ids []string
+
+	query := db.
+		Distinct("stu_id").
+		Order("stu_id ASC").
+		Limit(size)
+
+	// 游标条件
+	if lastStuID != "" {
+		query = query.Where("stu_id > ?", lastStuID)
+	}
+
+	err := query.
+		Pluck("stu_id", &ids).Error
+
+	if err != nil {
+		return nil, err
+	}
+
+	return ids, nil
+}

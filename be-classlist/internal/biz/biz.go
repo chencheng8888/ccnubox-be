@@ -9,7 +9,7 @@ import (
 )
 
 // ProviderSet is biz providers.
-var ProviderSet = wire.NewSet(NewClassUsecase)
+var ProviderSet = wire.NewSet(NewClassUsecase,NewCronTaskExecute)
 
 type ClassCrawler interface {
 	// 获取本科生的课表
@@ -63,4 +63,8 @@ type DelayQueue interface {
 	Send(ctx context.Context, key, value []byte) error
 	Consume(groupID string, f func(ctx context.Context, key []byte, value []byte)) error
 	Close()
+}
+
+type GetStudentIDer interface{
+	GetStudentIDs(ctx context.Context, lastStuID string,size int) ([]string, error)
 }
