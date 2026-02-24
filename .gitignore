@@ -31,6 +31,7 @@ Thumbs.db
 *.log
 bin/
 **/config.yaml
+**/config-infra.yaml
 
 # Develop tools
 .vscode/

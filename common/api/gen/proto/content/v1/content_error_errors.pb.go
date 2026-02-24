@@ -216,3 +216,27 @@ func IsSaveUpdateServiceError(err error) bool {
 func ErrorSaveUpdateServiceError(format string, args ...interface{}) *errors.Error {
 	return errors.New(561, CalendarErrorReason_SAVE_UPDATE_SERVICE_ERROR.String(), fmt.Sprintf(format, args...))
 }
+
+func IsGetSemesterError(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == CalendarErrorReason_GET_SEMESTER_ERROR.String() && e.Code == 570
+}
+
+func ErrorGetSemesterError(format string, args ...interface{}) *errors.Error {
+	return errors.New(570, CalendarErrorReason_GET_SEMESTER_ERROR.String(), fmt.Sprintf(format, args...))
+}
+
+func IsSaveSemesterError(err error) bool {
+	if err == nil {
+		return false
+	}
+	e := errors.FromError(err)
+	return e.Reason == CalendarErrorReason_SAVE_SEMESTER_ERROR.String() && e.Code == 571
+}
+
+func ErrorSaveSemesterError(format string, args ...interface{}) *errors.Error {
+	return errors.New(571, CalendarErrorReason_SAVE_SEMESTER_ERROR.String(), fmt.Sprintf(format, args...))
+}

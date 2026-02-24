@@ -123,3 +123,17 @@ type GetUpdateVersionResponse struct {
 type SaveVersionRequest struct {
 	Version string `json:"version" binding:"required"`
 }
+
+type GetSemesterRequest struct {
+	Date string `json:"date"`
+}
+
+type GetSemesterResponse struct {
+	Semester string `json:"semester"`
+}
+
+type SaveSemesterRequest struct {
+	Semester  string `json:"semester" binding:"required"`
+	StartDate string `json:"start_date" binding:"required"`
+	EndDate   string `json:"end_date" binding:"required"`
+}

@@ -13,5 +13,6 @@ func InitTables(db *gorm.DB) error {
 		&model.InfoSum{},
 		&model.Website{},
 		&model.Version{},
+		&model.Semester{},
 	)
 }

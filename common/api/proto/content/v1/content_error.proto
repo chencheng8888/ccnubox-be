@@ -33,4 +33,7 @@ enum CalendarErrorReason {
 
   GET_UPDATE_SERVICE_ERROR = 60 [(errors.code) = 560];
   SAVE_UPDATE_SERVICE_ERROR = 61 [(errors.code) = 561];
+
+  GET_SEMESTER_ERROR=70[(errors.code)=570];
+  SAVE_SEMESTER_ERROR=71[(errors.code)=571];
 }
